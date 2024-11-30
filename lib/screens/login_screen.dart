@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_login/data/user_data.dart';
 import 'package:flutter_login/models/user.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -53,7 +54,23 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               // TODO: 3. TOMBOL LOGIN
               const SizedBox(height: 16),
-              ElevatedButton(onPressed: () {}, child: const Text('Login'))
+              ElevatedButton(
+                  onPressed: () async {
+                    String email = _emailController.text;
+                    String password = _passwordController.text;
+
+                    if (validateLogin(email, password)) {
+                      SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
+                      await prefs.setBool('isLoggedIn', true);
+                      await prefs.setString('email', email);
+                      Navigator.pushReplacementNamed(context, '/home');
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text('Invalid email or password')));
+                    }
+                  },
+                  child: const Text('Login'))
             ],
           ),
         ),
