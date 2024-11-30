@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_login/data/user_data.dart';
+import 'package:flutter_login/models/user.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -50,10 +52,21 @@ class _LoginScreenState extends State<LoginScreen> {
                 obscureText: true,
               ),
               // TODO: 3. TOMBOL LOGIN
+              const SizedBox(height: 16),
+              ElevatedButton(onPressed: () {}, child: const Text('Login'))
             ],
           ),
         ),
       ),
     );
+  }
+
+  bool validateLogin(String email, String password) {
+    for (User user in userList) {
+      if (user.email == email && user.password == password) {
+        return true;
+      }
+    }
+    return false;
   }
 }
