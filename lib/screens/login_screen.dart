@@ -8,6 +8,9 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,8 +32,23 @@ class _LoginScreenState extends State<LoginScreen> {
                     fit: BoxFit.cover,
                   ),
                 ),
-              )
+              ),
               // TODO: 2. TEXTFIELD EMAIL DAN PASSWORD
+              const SizedBox(height: 16),
+              //Textfield untuk Email
+              TextField(
+                controller: _emailController,
+                decoration: const InputDecoration(
+                    border: OutlineInputBorder(), labelText: 'Email'),
+              ),
+              const SizedBox(height: 16),
+              //Textfield untuk Password
+              TextField(
+                controller: _passwordController,
+                decoration: const InputDecoration(
+                    border: OutlineInputBorder(), labelText: 'Password'),
+                obscureText: true,
+              ),
               // TODO: 3. TOMBOL LOGIN
             ],
           ),
